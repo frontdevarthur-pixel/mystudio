@@ -4,14 +4,14 @@ import { motion } from 'framer-motion';
 import { useReducedMotion } from '@/lib/hooks/useReducedMotion';
 import Carousel from '@/components/ui/Carousel';
 import { filterVisible, sortBySortOrder } from '@/lib/utils/sort-filter';
-import type { PortfolioProject, SiteSettings } from '@/types/api';
+import type { PortfolioProject } from '@/types/api';
 
 interface PortfolioSectionProps {
   projects: PortfolioProject[];
-  settings: SiteSettings;
+  settings?: unknown;
 }
 
-export default function PortfolioSection({ projects, settings }: PortfolioSectionProps) {
+export default function PortfolioSection({ projects }: PortfolioSectionProps) {
   const reducedMotion = useReducedMotion();
   const items = sortBySortOrder(filterVisible(projects));
 

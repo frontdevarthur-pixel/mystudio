@@ -4,14 +4,14 @@ import { motion } from 'framer-motion';
 import { useReducedMotion } from '@/lib/hooks/useReducedMotion';
 import TechCard from '@/components/ui/TechCard';
 import { filterVisible, sortBySortOrder } from '@/lib/utils/sort-filter';
-import type { TechnologiesSection as TechData, SiteSettings } from '@/types/api';
+import type { TechnologiesSection as TechData } from '@/types/api';
 
 interface TechnologiesSectionProps {
   data: TechData;
-  settings: SiteSettings;
+  settings?: unknown;
 }
 
-export default function TechnologiesSection({ data, settings }: TechnologiesSectionProps) {
+export default function TechnologiesSection({ data }: TechnologiesSectionProps) {
   const reducedMotion = useReducedMotion();
   const items = sortBySortOrder(filterVisible(data.items));
 

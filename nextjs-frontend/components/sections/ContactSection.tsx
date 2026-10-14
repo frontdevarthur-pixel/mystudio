@@ -20,7 +20,7 @@ export default function ContactSection({ settings }: ContactSectionProps) {
       {/* Большой фоновый текст */}
       <div className="absolute bottom-0 left-0 right-0 flex justify-center pointer-events-none select-none overflow-hidden">
         <span className="font-display text-[18vw] font-black text-white/[0.012] leading-none tracking-tighter whitespace-nowrap">
-          LET'S TALK
+          LET&apos;S TALK
         </span>
       </div>
 

@@ -1,11 +1,10 @@
 'use client';
 
 import { motion } from 'framer-motion';
-import Image from 'next/image';
 import { useReducedMotion } from '@/lib/hooks/useReducedMotion';
 import { useContactModal } from '@/components/ui/ContactModal';
 import TeamCard from '@/components/ui/TeamCard';
-import type { AboutSection as AboutData, TeamMember, SiteSettings } from '@/types/api';
+import type { AboutSection as AboutData, TeamMember } from '@/types/api';
 import { useRef, useState } from 'react';
 
 // Слайдер команды с кнопками навигации
@@ -94,24 +93,12 @@ function TeamSlider({ team, reducedMotion }: { team: TeamMember[]; reducedMotion
 interface AboutSectionProps {
   data: AboutData;
   team: TeamMember[];
-  settings: SiteSettings;
+  settings?: unknown;
 }
 
-export default function AboutSection({ data, team, settings }: AboutSectionProps) {
+export default function AboutSection({ data, team }: AboutSectionProps) {
   const reducedMotion = useReducedMotion();
   const { open } = useContactModal();
-
-  const containerVariants = {
-    hidden: {},
-    visible: { transition: { staggerChildren: 0.1 } },
-  };
-
-  const itemVariants = reducedMotion
-    ? {}
-    : {
-        hidden: { opacity: 0, y: 30 },
-        visible: { opacity: 1, y: 0, transition: { duration: 0.5 } },
-      };
 
   return (
     <section id="about" className="py-28 bg-[#080b11] relative overflow-hidden">
