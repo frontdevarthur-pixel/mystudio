@@ -1,7 +1,7 @@
 'use client';
 
 import { useState, useEffect, useCallback } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
+import { motion, AnimatePresence, type Variants } from 'framer-motion';
 import Image from 'next/image';
 import Modal from '@/components/ui/Modal';
 import { useReducedMotion } from '@/lib/hooks/useReducedMotion';
@@ -33,7 +33,7 @@ export default function Carousel({ projects }: CarouselProps) {
     return () => clearInterval(timer);
   }, [current, isHovered, projects.length, go]);
 
-  const slideVariants = reducedMotion
+  const slideVariants: Variants = reducedMotion
     ? {}
     : {
         enter: (d: number) => ({ x: d > 0 ? '100%' : '-100%', opacity: 0 }),
