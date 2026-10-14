@@ -1,0 +1,147 @@
+{
+  "settings": {
+    "site_name": "DevPartner",
+    "site_description": "White-label розробка для агентств та фрілансерів",
+    "email": "partner@devpartner.ua",
+    "phone": "+380 99 123 45 67",
+    "address": "Дніпро, Україна",
+    "social_links": [
+      { "platform": "telegram", "url": "https://t.me/devpartner", "label": "Telegram" },
+      { "platform": "linkedin", "url": "https://linkedin.com/company/devpartner", "label": "LinkedIn" }
+    ],
+    "seo_title": "DevPartner — White-label веб-розробка для агентств",
+    "seo_description": "Технічний партнер для агентств та фрілансерів. Розробка під вашим брендом: React, Next.js, WordPress.",
+    "seo_title_en": "DevPartner — White-label Web Development for Agencies",
+    "seo_description_en": "Technical partner for agencies and freelancers. Development under your brand: React, Next.js, WordPress.",
+    "twitter_card": "summary_large_image",
+    "map_lat": 48.4647,
+    "map_lng": 35.0462,
+    "office_marker_label": "DevPartner"
+  },
+  "hero": {
+    "heading": "Ваш технічний партнер під вашим брендом",
+    "subheading": "White-label розробка для агентств та фрілансерів. Ви продаєте — ми робимо.",
+    "cta_text": "Стати партнером",
+    "heading_en": "Your technical partner under your brand",
+    "subheading_en": "White-label development for agencies and freelancers. You sell — we build.",
+    "cta_text_en": "Become a partner",
+    "cta_anchor": "#contact",
+    "background_type": "gradient",
+    "background_gradient": "linear-gradient(135deg, #080b11, #0d1117, #080b11)"
+  },
+  "about": {
+    "about_title": "Хто ми",
+    "about_title_en": "Who we are",
+    "history": "<p>Ми — команда розробників, яка працює виключно у форматі white-label. Наші клієнти — агентства та фрілансери, які хочуть масштабувати бізнес без найму власної команди.</p><p>Ваші клієнти ніколи не дізнаються про нас. Ви отримуєте готовий продукт під своїм брендом у строк.</p>",
+    "history_en": "<p>We are a development team working exclusively in white-label format. Our clients are agencies and freelancers who want to scale their business without hiring their own team.</p><p>Your clients will never know about us. You get a finished product under your brand, on time.</p>",
+    "mission": "Дати агентствам можливість рости без операційного навантаження.",
+    "mission_en": "Give agencies the ability to grow without operational overhead.",
+    "values": ["Конфіденційність", "Дотримання дедлайнів", "Якість коду", "Масштабованість"],
+    "values_en": ["Confidentiality", "Meeting deadlines", "Code quality", "Scalability"],
+    "stats": [
+      { "label": "агентств-партнерів", "value": 34, "suffix": "+" },
+      { "label": "проєктів здано", "value": 280, "suffix": "+" },
+      { "label": "повторних замовлень", "value": 91, "suffix": "%" },
+      { "label": "країн присутності", "value": 8, "suffix": "" }
+    ]
+  },
+  "team": [
+    { "name": "Олексій Коваль", "position": "Founder & Tech Lead", "sort_order": 1 },
+    { "name": "Марія Шевченко", "position": "Senior Frontend Developer", "sort_order": 2 },
+    { "name": "Дмитро Бондар", "position": "Backend Developer", "sort_order": 3 },
+    { "name": "Анна Мельник", "position": "Project Manager", "sort_order": 4 }
+  ],
+  "services": [
+    {
+      "title": "White-label розробка сайтів",
+      "title_en": "White-label Website Development",
+      "description": "Повний цикл розробки під брендом вашого агентства. NDA гарантовано.",
+      "description_en": "Full-cycle development under your agency's brand. NDA guaranteed.",
+      "sort_order": 1,
+      "is_visible": true
+    },
+    {
+      "title": "Аутстаф розробників",
+      "title_en": "Developer Outstaffing",
+      "description": "Виділені розробники у вашу команду на проєктній або постійній основі.",
+      "description_en": "Dedicated developers for your team on a project or permanent basis.",
+      "sort_order": 2,
+      "is_visible": true
+    },
+    {
+      "title": "Технічна підтримка проєктів",
+      "title_en": "Technical Project Support",
+      "description": "Підхоплюємо чужі проєкти, рефакторинг, доробка legacy-коду.",
+      "description_en": "We take over third-party projects, refactoring, legacy code improvements.",
+      "sort_order": 3,
+      "is_visible": true
+    },
+    {
+      "title": "React / Next.js застосунки",
+      "title_en": "React / Next.js Applications",
+      "description": "SPA, SSR, лендинги та складні веб-застосунки будь-якого масштабу.",
+      "description_en": "SPA, SSR, landing pages and complex web applications of any scale.",
+      "sort_order": 4,
+      "is_visible": true
+    },
+    {
+      "title": "WordPress / Headless CMS",
+      "title_en": "WordPress / Headless CMS",
+      "description": "Кастомні теми, плагіни, headless архітектура для контент-менеджменту.",
+      "description_en": "Custom themes, plugins, headless architecture for content management.",
+      "sort_order": 5,
+      "is_visible": true
+    },
+    {
+      "title": "Консультації та Code Review",
+      "title_en": "Consulting & Code Review",
+      "description": "Технічний аудит, архітектурні консультації, перевірка якості коду.",
+      "description_en": "Technical audit, architectural consulting, code quality review.",
+      "sort_order": 6,
+      "is_visible": true
+    }
+  ],
+  "technologies": [
+    { "name": "React", "category": "Frontend", "sort_order": 1, "is_visible": true },
+    { "name": "Next.js", "category": "Frontend", "sort_order": 2, "is_visible": true },
+    { "name": "TypeScript", "category": "Frontend", "sort_order": 3, "is_visible": true },
+    { "name": "Tailwind CSS", "category": "Frontend", "sort_order": 4, "is_visible": true },
+    { "name": "WordPress", "category": "CMS", "sort_order": 5, "is_visible": true },
+    { "name": "Node.js", "category": "Backend", "sort_order": 6, "is_visible": true },
+    { "name": "PHP", "category": "Backend", "sort_order": 7, "is_visible": true },
+    { "name": "Docker", "category": "DevOps", "sort_order": 8, "is_visible": true }
+  ],
+  "portfolio": [
+    {
+      "title": "E-commerce для агентства AU",
+      "slug": "ecommerce-au-agency",
+      "short_description": "Інтернет-магазин для австралійського агентства. Клієнт агентства не знає про нас.",
+      "short_description_en": "E-commerce for an Australian agency. The agency's client doesn't know about us.",
+      "full_description": "<p>Розробили повноцінний магазин на WooCommerce + Next.js. Агентство здало проєкт клієнту під своїм іменем у строк.</p>",
+      "full_description_en": "<p>Built a full e-commerce on WooCommerce + Next.js. The agency delivered the project to the client on time under their own name.</p>",
+      "technologies": ["Next.js", "WooCommerce", "TypeScript"],
+      "project_url": "",
+      "sort_order": 1,
+      "is_visible": true
+    },
+    {
+      "title": "SaaS-дашборд для UK-агентства",
+      "slug": "saas-dashboard-uk",
+      "short_description": "Аналітичний дашборд для SaaS-стартапу. White-label під брендом замовника.",
+      "short_description_en": "Analytics dashboard for a SaaS startup. White-label under the client's brand.",
+      "full_description": "<p>Розробили React-дашборд з реальним часом, графіками та ролями. Тімліду агентства залишилось тільки здати проєкт.</p>",
+      "full_description_en": "<p>Built a React dashboard with real-time data, charts and roles. The agency team lead just had to deliver the project.</p>",
+      "technologies": ["React", "Node.js", "PostgreSQL"],
+      "sort_order": 2,
+      "is_visible": true
+    }
+  ],
+  "geography": [
+    { "country_code": "UA", "country_name": "Україна", "projects_count": 95, "clients_count": 18, "tooltip_text": "95 проєктів, 18 агентств-партнерів" },
+    { "country_code": "PL", "country_name": "Польща", "projects_count": 42, "clients_count": 7, "tooltip_text": "42 проєкти, 7 партнерів" },
+    { "country_code": "GB", "country_name": "Велика Британія", "projects_count": 38, "clients_count": 5, "tooltip_text": "38 проєктів, 5 партнерів" },
+    { "country_code": "US", "country_name": "США", "projects_count": 31, "clients_count": 4, "tooltip_text": "31 проєкт, 4 партнери" },
+    { "country_code": "DE", "country_name": "Німеччина", "projects_count": 22, "clients_count": 3, "tooltip_text": "22 проєкти, 3 партнери" },
+    { "country_code": "AU", "country_name": "Австралія", "projects_count": 14, "clients_count": 2, "tooltip_text": "14 проєктів, 2 партнери" }
+  ]
+}

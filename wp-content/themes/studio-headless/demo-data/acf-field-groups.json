@@ -1,0 +1,683 @@
+[
+  {
+    "key": "group_studio_settings",
+    "title": "Настройки студии",
+    "fields": [
+      {
+        "key": "field_site_name",
+        "label": "Название сайта",
+        "name": "site_name",
+        "type": "text",
+        "parent": "group_studio_settings"
+      },
+      {
+        "key": "field_logo",
+        "label": "Логотип",
+        "name": "logo",
+        "type": "image",
+        "return_format": "array",
+        "preview_size": "medium",
+        "parent": "group_studio_settings"
+      },
+      {
+        "key": "field_favicon",
+        "label": "Фавиконка",
+        "name": "favicon",
+        "type": "image",
+        "return_format": "array",
+        "preview_size": "thumbnail",
+        "parent": "group_studio_settings"
+      },
+      {
+        "key": "field_email",
+        "label": "Email",
+        "name": "email",
+        "type": "email",
+        "parent": "group_studio_settings"
+      },
+      {
+        "key": "field_phone",
+        "label": "Телефон",
+        "name": "phone",
+        "type": "text",
+        "parent": "group_studio_settings"
+      },
+      {
+        "key": "field_address",
+        "label": "Адрес",
+        "name": "address",
+        "type": "textarea",
+        "rows": 3,
+        "parent": "group_studio_settings"
+      },
+      {
+        "key": "field_social_links",
+        "label": "Социальные сети",
+        "name": "social_links",
+        "type": "repeater",
+        "layout": "table",
+        "button_label": "Добавить ссылку",
+        "parent": "group_studio_settings",
+        "sub_fields": [
+          {
+            "key": "field_social_platform",
+            "label": "Платформа",
+            "name": "platform",
+            "type": "text",
+            "parent": "field_social_links"
+          },
+          {
+            "key": "field_social_url",
+            "label": "URL",
+            "name": "url",
+            "type": "url",
+            "parent": "field_social_links"
+          },
+          {
+            "key": "field_social_label",
+            "label": "Метка",
+            "name": "label",
+            "type": "text",
+            "parent": "field_social_links"
+          }
+        ]
+      },
+      {
+        "key": "field_seo_title",
+        "label": "SEO-заголовок",
+        "name": "seo_title",
+        "type": "text",
+        "parent": "group_studio_settings"
+      },
+      {
+        "key": "field_seo_description",
+        "label": "SEO-описание",
+        "name": "seo_description",
+        "type": "textarea",
+        "rows": 3,
+        "parent": "group_studio_settings"
+      },
+      {
+        "key": "field_og_image",
+        "label": "OG-изображение",
+        "name": "og_image",
+        "type": "image",
+        "return_format": "array",
+        "preview_size": "medium",
+        "parent": "group_studio_settings"
+      },
+      {
+        "key": "field_twitter_card",
+        "label": "Twitter Card",
+        "name": "twitter_card",
+        "type": "select",
+        "choices": {
+          "summary": "Summary",
+          "summary_large_image": "Summary Large Image"
+        },
+        "default_value": "summary_large_image",
+        "parent": "group_studio_settings"
+      },
+      {
+        "key": "field_map_lat",
+        "label": "Широта (latitude)",
+        "name": "map_lat",
+        "type": "number",
+        "step": "any",
+        "parent": "group_studio_settings"
+      },
+      {
+        "key": "field_map_lng",
+        "label": "Долгота (longitude)",
+        "name": "map_lng",
+        "type": "number",
+        "step": "any",
+        "parent": "group_studio_settings"
+      },
+      {
+        "key": "field_office_marker_label",
+        "label": "Метка маркера на карте",
+        "name": "office_marker_label",
+        "type": "text",
+        "parent": "group_studio_settings"
+      }
+    ],
+    "location": [
+      [
+        {
+          "param": "options_page",
+          "operator": "==",
+          "value": "studio-settings"
+        }
+      ]
+    ],
+    "menu_order": 0,
+    "position": "normal",
+    "style": "default",
+    "label_placement": "top",
+    "instruction_placement": "label",
+    "active": true,
+    "description": ""
+  },
+  {
+    "key": "group_hero_section",
+    "title": "Hero-секция",
+    "fields": [
+      {
+        "key": "field_hero_heading",
+        "label": "Заголовок",
+        "name": "heading",
+        "type": "text",
+        "parent": "group_hero_section"
+      },
+      {
+        "key": "field_hero_subheading",
+        "label": "Подзаголовок",
+        "name": "subheading",
+        "type": "textarea",
+        "rows": 3,
+        "parent": "group_hero_section"
+      },
+      {
+        "key": "field_hero_cta_text",
+        "label": "Текст кнопки CTA",
+        "name": "cta_text",
+        "type": "text",
+        "parent": "group_hero_section"
+      },
+      {
+        "key": "field_hero_cta_anchor",
+        "label": "Якорь кнопки CTA",
+        "name": "cta_anchor",
+        "type": "text",
+        "placeholder": "#contact",
+        "instructions": "Якорная ссылка, например #contact или #portfolio",
+        "parent": "group_hero_section"
+      },
+      {
+        "key": "field_hero_background_type",
+        "label": "Тип фона",
+        "name": "background_type",
+        "type": "select",
+        "choices": {
+          "gradient": "Градиент",
+          "image": "Изображение",
+          "video": "Видео"
+        },
+        "default_value": "gradient",
+        "parent": "group_hero_section"
+      },
+      {
+        "key": "field_hero_background_gradient",
+        "label": "CSS-градиент фона",
+        "name": "background_gradient",
+        "type": "text",
+        "placeholder": "linear-gradient(135deg, #1a1a2e 0%, #16213e 100%)",
+        "conditional_logic": [
+          [
+            {
+              "field": "field_hero_background_type",
+              "operator": "==",
+              "value": "gradient"
+            }
+          ]
+        ],
+        "parent": "group_hero_section"
+      },
+      {
+        "key": "field_hero_background_image",
+        "label": "Фоновое изображение",
+        "name": "background_image",
+        "type": "image",
+        "return_format": "array",
+        "preview_size": "medium",
+        "conditional_logic": [
+          [
+            {
+              "field": "field_hero_background_type",
+              "operator": "==",
+              "value": "image"
+            }
+          ]
+        ],
+        "parent": "group_hero_section"
+      },
+      {
+        "key": "field_hero_background_video",
+        "label": "Фоновое видео",
+        "name": "background_video",
+        "type": "file",
+        "return_format": "array",
+        "mime_types": "mp4,webm",
+        "conditional_logic": [
+          [
+            {
+              "field": "field_hero_background_type",
+              "operator": "==",
+              "value": "video"
+            }
+          ]
+        ],
+        "parent": "group_hero_section"
+      }
+    ],
+    "location": [
+      [
+        {
+          "param": "options_page",
+          "operator": "==",
+          "value": "hero-section"
+        }
+      ]
+    ],
+    "menu_order": 0,
+    "position": "normal",
+    "style": "default",
+    "label_placement": "top",
+    "instruction_placement": "label",
+    "active": true,
+    "description": ""
+  },
+  {
+    "key": "group_about_section",
+    "title": "Секция «О нас»",
+    "fields": [
+      {
+        "key": "field_about_title",
+        "label": "Заголовок раздела",
+        "name": "about_title",
+        "type": "text",
+        "parent": "group_about_section"
+      },
+      {
+        "key": "field_about_history",
+        "label": "История",
+        "name": "history",
+        "type": "wysiwyg",
+        "toolbar": "full",
+        "media_upload": 1,
+        "parent": "group_about_section"
+      },
+      {
+        "key": "field_about_mission",
+        "label": "Миссия",
+        "name": "mission",
+        "type": "textarea",
+        "rows": 4,
+        "parent": "group_about_section"
+      },
+      {
+        "key": "field_about_values",
+        "label": "Ценности",
+        "name": "values",
+        "type": "repeater",
+        "layout": "table",
+        "button_label": "Добавить ценность",
+        "parent": "group_about_section",
+        "sub_fields": [
+          {
+            "key": "field_about_value_item",
+            "label": "Ценность",
+            "name": "value_item",
+            "type": "text",
+            "parent": "field_about_values"
+          }
+        ]
+      },
+      {
+        "key": "field_about_stats",
+        "label": "Статистика",
+        "name": "stats",
+        "type": "repeater",
+        "layout": "table",
+        "button_label": "Добавить показатель",
+        "parent": "group_about_section",
+        "sub_fields": [
+          {
+            "key": "field_stat_label",
+            "label": "Подпись",
+            "name": "label",
+            "type": "text",
+            "parent": "field_about_stats"
+          },
+          {
+            "key": "field_stat_value",
+            "label": "Значение",
+            "name": "value",
+            "type": "number",
+            "parent": "field_about_stats"
+          },
+          {
+            "key": "field_stat_suffix",
+            "label": "Суффикс",
+            "name": "suffix",
+            "type": "text",
+            "placeholder": "+",
+            "parent": "field_about_stats"
+          }
+        ]
+      }
+    ],
+    "location": [
+      [
+        {
+          "param": "options_page",
+          "operator": "==",
+          "value": "about-section"
+        }
+      ]
+    ],
+    "menu_order": 0,
+    "position": "normal",
+    "style": "default",
+    "label_placement": "top",
+    "instruction_placement": "label",
+    "active": true,
+    "description": ""
+  },
+  {
+    "key": "group_portfolio_fields",
+    "title": "Поля проекта",
+    "fields": [
+      {
+        "key": "field_portfolio_short_desc",
+        "label": "Краткое описание",
+        "name": "short_description",
+        "type": "textarea",
+        "rows": 3,
+        "parent": "group_portfolio_fields"
+      },
+      {
+        "key": "field_portfolio_full_desc",
+        "label": "Полное описание",
+        "name": "full_description",
+        "type": "wysiwyg",
+        "toolbar": "full",
+        "parent": "group_portfolio_fields"
+      },
+      {
+        "key": "field_portfolio_gallery",
+        "label": "Галерея",
+        "name": "gallery",
+        "type": "gallery",
+        "return_format": "array",
+        "preview_size": "medium",
+        "parent": "group_portfolio_fields"
+      },
+      {
+        "key": "field_portfolio_technologies",
+        "label": "Технологии",
+        "name": "technologies",
+        "type": "repeater",
+        "layout": "table",
+        "button_label": "Добавить технологию",
+        "parent": "group_portfolio_fields",
+        "sub_fields": [
+          {
+            "key": "field_portfolio_tech_name",
+            "label": "Название",
+            "name": "tech_name",
+            "type": "text",
+            "parent": "field_portfolio_technologies"
+          }
+        ]
+      },
+      {
+        "key": "field_portfolio_project_url",
+        "label": "Ссылка на проект",
+        "name": "project_url",
+        "type": "url",
+        "parent": "group_portfolio_fields"
+      },
+      {
+        "key": "field_portfolio_sort_order",
+        "label": "Порядок сортировки",
+        "name": "sort_order",
+        "type": "number",
+        "default_value": 0,
+        "min": 0,
+        "parent": "group_portfolio_fields"
+      },
+      {
+        "key": "field_portfolio_is_visible",
+        "label": "Отображать на сайте",
+        "name": "is_visible",
+        "type": "true_false",
+        "default_value": 1,
+        "ui": 1,
+        "parent": "group_portfolio_fields"
+      }
+    ],
+    "location": [
+      [
+        {
+          "param": "post_type",
+          "operator": "==",
+          "value": "portfolio"
+        }
+      ]
+    ],
+    "menu_order": 0,
+    "position": "normal",
+    "style": "default",
+    "label_placement": "top",
+    "instruction_placement": "label",
+    "active": true,
+    "description": ""
+  },
+  {
+    "key": "group_services_fields",
+    "title": "Поля услуги",
+    "fields": [
+      {
+        "key": "field_service_description",
+        "label": "Описание",
+        "name": "description",
+        "type": "textarea",
+        "rows": 4,
+        "parent": "group_services_fields"
+      },
+      {
+        "key": "field_service_icon",
+        "label": "Иконка",
+        "name": "icon",
+        "type": "image",
+        "return_format": "array",
+        "preview_size": "thumbnail",
+        "parent": "group_services_fields"
+      },
+      {
+        "key": "field_service_sort_order",
+        "label": "Порядок сортировки",
+        "name": "sort_order",
+        "type": "number",
+        "default_value": 0,
+        "min": 0,
+        "parent": "group_services_fields"
+      },
+      {
+        "key": "field_service_is_visible",
+        "label": "Отображать на сайте",
+        "name": "is_visible",
+        "type": "true_false",
+        "default_value": 1,
+        "ui": 1,
+        "parent": "group_services_fields"
+      }
+    ],
+    "location": [
+      [
+        {
+          "param": "post_type",
+          "operator": "==",
+          "value": "services"
+        }
+      ]
+    ],
+    "menu_order": 0,
+    "position": "normal",
+    "style": "default",
+    "label_placement": "top",
+    "instruction_placement": "label",
+    "active": true,
+    "description": ""
+  },
+  {
+    "key": "group_technologies_fields",
+    "title": "Поля технологии",
+    "fields": [
+      {
+        "key": "field_tech_logo",
+        "label": "Логотип",
+        "name": "logo",
+        "type": "image",
+        "return_format": "array",
+        "preview_size": "thumbnail",
+        "parent": "group_technologies_fields"
+      },
+      {
+        "key": "field_tech_category",
+        "label": "Категория",
+        "name": "category",
+        "type": "select",
+        "choices": {
+          "Frontend": "Frontend",
+          "Backend": "Backend",
+          "CMS": "CMS",
+          "DevOps": "DevOps",
+          "Mobile": "Mobile"
+        },
+        "default_value": "Frontend",
+        "parent": "group_technologies_fields"
+      },
+      {
+        "key": "field_tech_sort_order",
+        "label": "Порядок сортировки",
+        "name": "sort_order",
+        "type": "number",
+        "default_value": 0,
+        "min": 0,
+        "parent": "group_technologies_fields"
+      },
+      {
+        "key": "field_tech_is_visible",
+        "label": "Отображать на сайте",
+        "name": "is_visible",
+        "type": "true_false",
+        "default_value": 1,
+        "ui": 1,
+        "parent": "group_technologies_fields"
+      }
+    ],
+    "location": [
+      [
+        {
+          "param": "post_type",
+          "operator": "==",
+          "value": "technologies"
+        }
+      ]
+    ],
+    "menu_order": 0,
+    "position": "normal",
+    "style": "default",
+    "label_placement": "top",
+    "instruction_placement": "label",
+    "active": true,
+    "description": ""
+  },
+  {
+    "key": "group_team_fields",
+    "title": "Поля сотрудника",
+    "fields": [
+      {
+        "key": "field_team_position",
+        "label": "Должность",
+        "name": "position",
+        "type": "text",
+        "parent": "group_team_fields"
+      },
+      {
+        "key": "field_team_sort_order",
+        "label": "Порядок сортировки",
+        "name": "sort_order",
+        "type": "number",
+        "default_value": 0,
+        "min": 0,
+        "parent": "group_team_fields"
+      }
+    ],
+    "location": [
+      [
+        {
+          "param": "post_type",
+          "operator": "==",
+          "value": "team"
+        }
+      ]
+    ],
+    "menu_order": 0,
+    "position": "normal",
+    "style": "default",
+    "label_placement": "top",
+    "instruction_placement": "label",
+    "active": true,
+    "description": ""
+  },
+  {
+    "key": "group_geography_fields",
+    "title": "Поля страны",
+    "fields": [
+      {
+        "key": "field_geo_country_code",
+        "label": "Код страны (ISO 3166-1 alpha-2)",
+        "name": "country_code",
+        "type": "text",
+        "placeholder": "RU",
+        "maxlength": 2,
+        "parent": "group_geography_fields"
+      },
+      {
+        "key": "field_geo_projects_count",
+        "label": "Количество проектов",
+        "name": "projects_count",
+        "type": "number",
+        "default_value": 0,
+        "min": 0,
+        "parent": "group_geography_fields"
+      },
+      {
+        "key": "field_geo_clients_count",
+        "label": "Количество клиентов",
+        "name": "clients_count",
+        "type": "number",
+        "default_value": 0,
+        "min": 0,
+        "parent": "group_geography_fields"
+      },
+      {
+        "key": "field_geo_tooltip_text",
+        "label": "Текст тултипа",
+        "name": "tooltip_text",
+        "type": "text",
+        "parent": "group_geography_fields"
+      }
+    ],
+    "location": [
+      [
+        {
+          "param": "post_type",
+          "operator": "==",
+          "value": "geography"
+        }
+      ]
+    ],
+    "menu_order": 0,
+    "position": "normal",
+    "style": "default",
+    "label_placement": "top",
+    "instruction_placement": "label",
+    "active": true,
+    "description": ""
+  }
+]
