@@ -586,3 +586,36 @@ function studio_admin_settings_page(): void {
     </div>
     <?php
 }
+
+/**
+ * Метабокс для просмотра данных контактной заявки.
+ */
+add_action( 'add_meta_boxes', function (): void {
+    add_meta_box(
+        'studio_contact_request_details',
+        'Детали заявки',
+        'studio_contact_request_metabox',
+        'contact_request',
+        'normal',
+        'high'
+    );
+} );
+
+function studio_contact_request_metabox( WP_Post $post ): void {
+    $name        = get_post_meta( $post->ID, 'contact_name', true );
+    $email       = get_post_meta( $post->ID, 'contact_email', true );
+    $phone       = get_post_meta( $post->ID, 'contact_phone', true );
+    $description = get_post_meta( $post->ID, 'contact_description', true );
+    $date        = get_post_meta( $post->ID, 'contact_date', true );
+    $ip          = get_post_meta( $post->ID, 'contact_ip', true );
+    ?>
+    <table class="form-table" style="margin:0;">
+        <tr><th style="width:140px;">Ім'я</th><td><?php echo esc_html( $name ?: '—' ); ?></td></tr>
+        <tr><th>Email</th><td><?php echo $email ? '<a href="mailto:' . esc_attr( $email ) . '">' . esc_html( $email ) . '</a>' : '—'; ?></td></tr>
+        <tr><th>Телефон</th><td><?php echo $phone ? '<a href="tel:' . esc_attr( $phone ) . '">' . esc_html( $phone ) . '</a>' : '—'; ?></td></tr>
+        <tr><th>Опис проекту</th><td style="white-space:pre-wrap;"><?php echo esc_html( $description ?: '—' ); ?></td></tr>
+        <tr><th>Дата</th><td><?php echo esc_html( $date ?: $post->post_date ); ?></td></tr>
+        <tr><th>IP</th><td><?php echo esc_html( $ip ?: '—' ); ?></td></tr>
+    </table>
+    <?php
+}

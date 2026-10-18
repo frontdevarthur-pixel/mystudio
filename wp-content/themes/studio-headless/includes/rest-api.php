@@ -110,18 +110,26 @@ add_action( 'rest_api_init', function (): void {
  * @return mixed
  */
 function studio_get_option_field( string $field_name, $default = '', string $lang = 'uk' ) {
+    $target_field = ( 'en' === $lang ) ? $field_name . '_en' : $field_name;
+
     if ( function_exists( 'get_field' ) ) {
-        // Для EN пробуем поле с суффиксом _en
-        if ( 'en' === $lang ) {
-            $en_value = get_field( $field_name . '_en', 'option' );
-            if ( $en_value !== false && $en_value !== null && $en_value !== '' ) {
-                return $en_value;
-            }
+        $value = get_field( $target_field, 'option' );
+        
+        // Если для EN поле пустое, пробуем взять базовое (UK)
+        if ( 'en' === $lang && ( $value === false || $value === null || $value === '' ) ) {
+            $value = get_field( $field_name, 'option' );
         }
-        $value = get_field( $field_name, 'option' );
-        return $value !== false && $value !== null ? $value : $default;
+        
+        return ( $value !== false && $value !== null && $value !== '' ) ? $value : $default;
     }
-    return get_option( 'options_' . $field_name, $default );
+
+    // Запасной вариант через стандартные опции WP
+    $value = get_option( 'options_' . $target_field, null );
+    if ( 'en' === $lang && ( $value === null || $value === '' ) ) {
+        $value = get_option( 'options_' . $field_name, null );
+    }
+
+    return ( $value !== null && $value !== '' ) ? $value : $default;
 }
 
 /**
@@ -657,7 +665,7 @@ function studio_rest_get_labels( WP_REST_Request $request ): WP_REST_Response {
     $lang = studio_get_lang( $request );
 
     $fields = [
-        'services_title', 'services_description', 'services_cta',
+        'services_title', 'services_section_desc', 'services_cta',
         'technologies_title', 'technologies_subtitle',
         'portfolio_title',
         'stats_cta_text', 'stats_cta_btn',
