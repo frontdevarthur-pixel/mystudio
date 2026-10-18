@@ -1,3 +1,4 @@
+import Image from 'next/image';
 import type { SiteSettings } from '@/types/api';
 import type { Lang } from '@/lib/api/endpoints';
 
@@ -18,8 +19,21 @@ export default function Footer({ settings, lang = 'uk' }: FooterProps) {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
           <div>
-            <h3 className="text-xl font-bold text-white mb-2">{settings.site_name}</h3>
-            <p className="text-gray-400 text-sm">{settings.site_description}</p>
+            <div className="mb-4">
+              {settings.logo_url ? (
+                <Image
+                  src={settings.logo_url}
+                  alt={settings.site_name}
+                  width={140}
+                  height={45}
+                  className="object-contain h-10 w-auto"
+                  unoptimized
+                />
+              ) : (
+                <h3 className="text-xl font-bold text-white">{settings.site_name}</h3>
+              )}
+            </div>
+            <p className="text-gray-400 text-sm leading-relaxed max-w-xs">{settings.site_description}</p>
           </div>
 
           <div>
