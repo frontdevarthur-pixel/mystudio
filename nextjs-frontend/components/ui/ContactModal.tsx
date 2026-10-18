@@ -3,18 +3,24 @@
 import { createContext, useContext, useState, useCallback } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import ContactForm from '@/components/ui/ContactForm';
+import type { Lang } from '@/lib/api/endpoints';
 
-// Context для открытия модалки из любого компонента
 const ContactModalContext = createContext<{ open: () => void }>({ open: () => {} });
 
 export function useContactModal() {
   return useContext(ContactModalContext);
 }
 
-export function ContactModalProvider({ children }: { children: React.ReactNode }) {
+const modalI18n = {
+  uk: { title: 'Обговорити проект', subtitle: 'Розкажіть про задачу — відповімо протягом години', close: 'Закрити' },
+  en: { title: 'Discuss a project', subtitle: 'Tell us about your task — we\'ll reply within an hour', close: 'Close' },
+};
+
+export function ContactModalProvider({ children, lang = 'uk' }: { children: React.ReactNode; lang?: Lang }) {
   const [isOpen, setIsOpen] = useState(false);
   const open = useCallback(() => setIsOpen(true), []);
   const close = useCallback(() => setIsOpen(false), []);
+  const t = modalI18n[lang] ?? modalI18n.uk;
 
   return (
     <ContactModalContext.Provider value={{ open }}>
@@ -53,13 +59,13 @@ export function ContactModalProvider({ children }: { children: React.ReactNode }
                 <div className="px-7 pt-7 pb-5 border-b border-white/5">
                   <div className="flex items-start justify-between gap-4">
                     <div>
-                      <h2 className="font-display text-2xl font-bold text-white">Обсудить проект</h2>
-                      <p className="text-slate-400 text-sm mt-1">Расскажите о задаче — ответим в течение часа</p>
+                      <h2 className="font-display text-2xl font-bold text-white">{t.title}</h2>
+                      <p className="text-slate-400 text-sm mt-1">{t.subtitle}</p>
                     </div>
                     <button
                       onClick={close}
                       className="flex-shrink-0 w-8 h-8 rounded-lg glass-card flex items-center justify-center text-slate-400 hover:text-white hover:border-white/20 transition-colors"
-                      aria-label="Закрыть"
+                      aria-label={t.close}
                     >
                       <svg width="14" height="14" viewBox="0 0 14 14" fill="none">
                         <path d="M1 1l12 12M13 1L1 13" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round"/>
@@ -70,7 +76,7 @@ export function ContactModalProvider({ children }: { children: React.ReactNode }
 
                 {/* Form */}
                 <div className="p-7">
-                  <ContactForm onSuccess={close} />
+                  <ContactForm onSuccess={close} lang={lang} />
                 </div>
               </div>
             </motion.div>

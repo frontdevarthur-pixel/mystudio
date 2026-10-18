@@ -10,6 +10,7 @@ import GeographySection from '@/components/sections/GeographySection';
 import ContactSection from '@/components/sections/ContactSection';
 import Marquee from '@/components/ui/Marquee';
 import FloatingContacts from '@/components/ui/FloatingContacts';
+import { ContactModalProvider } from '@/components/ui/ContactModal';
 import { buildOrganizationJsonLd, buildWebSiteJsonLd } from '@/lib/utils/jsonld';
 import type { LandingPageData } from '@/types/api';
 import type { Lang } from '@/lib/api/endpoints';
@@ -30,35 +31,35 @@ export default function LandingPage({ data, lang }: LandingPageProps) {
   const siteJsonLd = buildWebSiteJsonLd(data.settings);
 
   return (
-    <>
+    <ContactModalProvider lang={lang}>
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(orgJsonLd) }} />
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(siteJsonLd) }} />
 
       <Header settings={data.settings} lang={lang} />
 
       <main className="pt-16">
-        <HeroSection data={data.hero} settings={data.settings} />
+        <HeroSection data={data.hero} settings={data.settings} labels={data.labels} lang={lang} />
 
         <div className="py-2 border-y border-white/5 bg-[#0d1117]">
           <Marquee items={MARQUEE_WORDS} direction="left" speed={50} />
         </div>
 
-        <StatsSection stats={data.about.stats} siteName={data.settings.site_name} />
-        <AboutSection data={data.about} team={data.team} settings={data.settings} />
-        <ServicesSection services={data.services} settings={data.settings} />
+        <StatsSection stats={data.about.stats} siteName={data.settings.site_name} labels={data.labels} lang={lang} />
+        <AboutSection data={data.about} team={data.team} settings={data.settings} labels={data.labels} lang={lang} />
+        <ServicesSection services={data.services} settings={data.settings} labels={data.labels} lang={lang} />
 
         <div className="py-2 border-y border-white/5 bg-[#080b11]">
           <Marquee items={MARQUEE_WORDS} direction="right" speed={55} />
         </div>
 
-        <TechnologiesSection data={data.technologies} settings={data.settings} />
-        <PortfolioSection projects={data.portfolio} settings={data.settings} />
-        <GeographySection data={data.geography} />
-        <ContactSection settings={data.settings} />
+        <TechnologiesSection data={data.technologies} settings={data.settings} labels={data.labels} lang={lang} />
+        <PortfolioSection projects={data.portfolio} settings={data.settings} labels={data.labels} lang={lang} />
+        <GeographySection data={data.geography} lang={lang} />
+        <ContactSection settings={data.settings} labels={data.labels} lang={lang} />
       </main>
 
-      <Footer settings={data.settings} />
-      <FloatingContacts settings={data.settings} />
-    </>
+      <Footer settings={data.settings} lang={lang} />
+      <FloatingContacts settings={data.settings} lang={lang} />
+    </ContactModalProvider>
   );
 }

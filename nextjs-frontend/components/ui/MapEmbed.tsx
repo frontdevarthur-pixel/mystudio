@@ -8,7 +8,7 @@ interface MapEmbedProps {
   markerLabel: string;
 }
 
-// Внутренний компонент с Leaflet (загружается только на клиенте)
+// Внутренний компонент с картой (загружается только на клиенте)
 function LeafletMap({ lat, lng, markerLabel }: MapEmbedProps) {
   // Используем iframe Google Maps как простой fallback если нет ключа,
   // или можно заменить на полноценный Leaflet
@@ -29,13 +29,11 @@ function LeafletMap({ lat, lng, markerLabel }: MapEmbedProps) {
   );
 }
 
-// Динамический импорт без SSR (Leaflet требует window)
+// Динамический импорт без SSR: плейсхолдер нейтрален к языку (без текста)
 const MapEmbedClient = dynamic(() => Promise.resolve(LeafletMap), {
   ssr: false,
   loading: () => (
-    <div className="w-full h-64 rounded-xl bg-white/5 border border-white/10 flex items-center justify-center text-gray-500 text-sm">
-      Загрузка карты...
-    </div>
+    <div className="w-full h-64 rounded-xl bg-white/5 border border-white/10 animate-pulse" />
   ),
 });
 

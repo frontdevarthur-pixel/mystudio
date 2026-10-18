@@ -3,20 +3,25 @@
 import { useState, useEffect, useCallback } from 'react';
 import { motion, AnimatePresence, type Variants } from 'framer-motion';
 import Image from 'next/image';
-import Modal from '@/components/ui/Modal';
 import { useReducedMotion } from '@/lib/hooks/useReducedMotion';
 import type { PortfolioProject } from '@/types/api';
 
 interface CarouselProps {
   projects: PortfolioProject[];
+  lang?: 'uk' | 'en';
 }
 
-export default function Carousel({ projects }: CarouselProps) {
+const carouselI18n = {
+  uk: { details: 'Детальніше', open: 'Відкрити →', openProject: 'Відкрити проект →', prev: 'Попередній', next: 'Наступний', slide: 'Слайд' },
+  en: { details: 'Details', open: 'Open →', openProject: 'Open project →', prev: 'Previous', next: 'Next', slide: 'Slide' },
+};
+
+export default function Carousel({ projects, lang = 'uk' }: CarouselProps) {
+  const t = carouselI18n[lang] ?? carouselI18n.uk;
   const reducedMotion = useReducedMotion();
   const [current, setCurrent] = useState(0);
   const [direction, setDirection] = useState(1);
   const [isHovered, setIsHovered] = useState(false);
-  const [modalProject, setModalProject] = useState<PortfolioProject | null>(null);
 
   const go = useCallback((index: number, dir: number) => {
     setDirection(dir);
@@ -62,10 +67,7 @@ export default function Carousel({ projects }: CarouselProps) {
             className="grid md:grid-cols-2 gap-0 glass-card"
           >
             {/* Изображение */}
-            <div
-              className="relative aspect-video md:aspect-auto md:min-h-[360px] cursor-pointer group"
-              onClick={() => setModalProject(project)}
-            >
+            <div className="relative aspect-video md:aspect-auto md:min-h-[360px] group">
               {project.screenshot_url ? (
                 <Image
                   src={project.screenshot_url}
@@ -99,12 +101,6 @@ export default function Carousel({ projects }: CarouselProps) {
               )}
 
               <div className="flex gap-3">
-                <button
-                  onClick={() => setModalProject(project)}
-                  className="btn-accent px-5 py-2.5 rounded-xl text-sm"
-                >
-                  Подробнее
-                </button>
                 {project.project_url && (
                   <a
                     href={project.project_url}
@@ -112,7 +108,7 @@ export default function Carousel({ projects }: CarouselProps) {
                     rel="noopener noreferrer"
                     className="btn-outline px-5 py-2.5 rounded-xl text-sm"
                   >
-                    Открыть →
+                    {t.open}
                   </a>
                 )}
               </div>
@@ -126,14 +122,14 @@ export default function Carousel({ projects }: CarouselProps) {
             <button
               onClick={prev}
               className="absolute left-3 top-1/2 -translate-y-1/2 w-10 h-10 rounded-full bg-black/50 hover:bg-black/70 text-white flex items-center justify-center transition-colors z-10"
-              aria-label="Предыдущий"
+              aria-label={t.prev}
             >
               ‹
             </button>
             <button
               onClick={next}
               className="absolute right-3 top-1/2 -translate-y-1/2 w-10 h-10 rounded-full bg-black/50 hover:bg-black/70 text-white flex items-center justify-center transition-colors z-10"
-              aria-label="Следующий"
+              aria-label={t.next}
             >
               ›
             </button>
@@ -145,7 +141,7 @@ export default function Carousel({ projects }: CarouselProps) {
                   key={i}
                   onClick={() => go(i, i > current ? 1 : -1)}
                   className={`w-2 h-2 rounded-full transition-all ${i === current ? 'bg-violet-400 w-6' : 'bg-white/30'}`}
-                  aria-label={`Слайд ${i + 1}`}
+                  aria-label={`${t.slide} ${i + 1}`}
                 />
               ))}
             </div>
@@ -153,44 +149,6 @@ export default function Carousel({ projects }: CarouselProps) {
         )}
       </div>
 
-      {/* Модальное окно с деталями */}
-      <Modal isOpen={!!modalProject} onClose={() => setModalProject(null)}>
-        {modalProject && (
-          <div className="p-6">
-            {modalProject.screenshot_url && (
-              <div className="relative aspect-video rounded-xl overflow-hidden mb-6">
-                <Image src={modalProject.screenshot_url} alt={modalProject.screenshot_alt || modalProject.title} fill className="object-cover" />
-              </div>
-            )}
-            <h3 className="text-2xl font-bold text-white mb-3">{modalProject.title}</h3>
-            {modalProject.full_description ? (
-              <div
-                className="text-gray-300 text-sm leading-relaxed mb-4 prose prose-invert prose-sm max-w-none"
-                dangerouslySetInnerHTML={{ __html: modalProject.full_description }}
-              />
-            ) : (
-              <p className="text-gray-300 text-sm mb-4">{modalProject.short_description}</p>
-            )}
-            {modalProject.technologies?.length > 0 && (
-              <div className="flex flex-wrap gap-2 mb-4">
-                  {project.technologies.map((t, i) => (
-                    <span key={i} className="px-3 py-1 rounded-full glass-card border-accent/20 text-accent/80 text-xs font-display">{t}</span>
-                  ))}
-              </div>
-            )}
-            {modalProject.project_url && (
-              <a
-                href={modalProject.project_url}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="inline-block btn-accent px-5 py-2.5 rounded-xl text-sm"
-              >
-                Открыть проект →
-              </a>
-            )}
-          </div>
-        )}
-      </Modal>
     </>
   );
 }

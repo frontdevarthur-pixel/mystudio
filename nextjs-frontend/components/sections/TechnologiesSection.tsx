@@ -4,16 +4,22 @@ import { motion } from 'framer-motion';
 import { useReducedMotion } from '@/lib/hooks/useReducedMotion';
 import TechCard from '@/components/ui/TechCard';
 import { filterVisible, sortBySortOrder } from '@/lib/utils/sort-filter';
-import type { TechnologiesSection as TechData } from '@/types/api';
+import type { TechnologiesSection as TechData, SectionLabels } from '@/types/api';
+import type { Lang } from '@/lib/api/endpoints';
 
 interface TechnologiesSectionProps {
   data: TechData;
   settings?: unknown;
+  labels?: Pick<SectionLabels, 'technologies_title' | 'technologies_subtitle'>;
+  lang?: Lang;
 }
 
-export default function TechnologiesSection({ data }: TechnologiesSectionProps) {
+export default function TechnologiesSection({ data, labels, lang = 'uk' }: TechnologiesSectionProps) {
   const reducedMotion = useReducedMotion();
   const items = sortBySortOrder(filterVisible(data.items));
+
+  const title    = labels?.technologies_title    || (lang === 'en' ? 'Technologies' : 'Технології');
+  const subtitle = labels?.technologies_subtitle || (lang === 'en' ? 'Tools we use to build products' : 'Інструменти, якими ми будуємо продукти');
 
   const containerVariants = { hidden: {}, visible: { transition: { staggerChildren: 0.04 } } };
   const itemVariants = reducedMotion
@@ -34,7 +40,7 @@ export default function TechnologiesSection({ data }: TechnologiesSectionProps) 
             transition={{ duration: 0.6 }}
           >
             <h2 className="heading-outline text-5xl sm:text-6xl lg:text-7xl whitespace-nowrap mb-6">
-              Технологии
+              {title}
             </h2>
           </motion.div>
 
@@ -45,7 +51,7 @@ export default function TechnologiesSection({ data }: TechnologiesSectionProps) 
             transition={{ duration: 0.6, delay: 0.15 }}
             className="text-slate-500 text-lg max-w-xs lg:text-right"
           >
-            Инструменты, которыми мы строим продукты
+            {subtitle}
           </motion.p>
         </div>
 

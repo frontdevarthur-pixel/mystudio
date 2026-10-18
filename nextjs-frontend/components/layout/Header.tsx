@@ -69,9 +69,10 @@ export default function Header({ settings, lang = 'uk' }: HeaderProps) {
             <Image
               src={settings.logo_url}
               alt={settings.site_name}
-              width={36}
-              height={36}
-              className="object-contain"
+              width={120}
+              height={40}
+              className="object-contain h-8 w-auto"
+              unoptimized
             />
           ) : (
             <div className="w-8 h-8 rounded-lg bg-accent flex items-center justify-center">
@@ -80,9 +81,6 @@ export default function Header({ settings, lang = 'uk' }: HeaderProps) {
               </span>
             </div>
           )}
-          <span className="text-lg font-bold text-white font-display group-hover:text-accent transition-colors">
-            {settings.site_name}
-          </span>
         </a>
 
         {/* Десктоп навигация */}
@@ -120,7 +118,7 @@ export default function Header({ settings, lang = 'uk' }: HeaderProps) {
         <button
           className="md:hidden p-2 text-slate-300 hover:text-white"
           onClick={() => setMenuOpen(prev => !prev)}
-          aria-label="Открыть меню"
+          aria-label={lang === 'en' ? 'Open menu' : 'Відкрити меню'}
         >
           <div className="space-y-1.5 w-6">
             <span className={`block h-px bg-current transition-all duration-200 ${menuOpen ? 'rotate-45 translate-y-2.5 w-6' : 'w-6'}`} />

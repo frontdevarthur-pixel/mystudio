@@ -87,6 +87,14 @@ add_action( 'rest_api_init', function (): void {
         'permission_callback' => '__return_true',
         'args'                => $lang_arg,
     ] );
+
+    // ─── GET /labels ──────────────────────────────────────────────────────────
+    register_rest_route( $namespace, '/labels', [
+        'methods'             => 'GET',
+        'callback'            => 'studio_rest_get_labels',
+        'permission_callback' => '__return_true',
+        'args'                => $lang_arg,
+    ] );
 } );
 
 
@@ -132,7 +140,7 @@ function studio_get_lang( WP_REST_Request $request ): string {
  * @param string $size        Размер изображения (large, medium и т.д.).
  * @return string URL изображения или пустая строка.
  */
-function studio_get_image_url( $image_field, string $size = 'large' ): string {
+function studio_get_image_url( $image_field, string $size = 'full' ): string {
     if ( empty( $image_field ) ) {
         return '';
     }
@@ -213,7 +221,7 @@ function studio_rest_get_settings( WP_REST_Request $request ): WP_REST_Response 
 
     $data = [
         'site_name'           => studio_get_option_field( 'site_name', get_bloginfo( 'name' ), $lang ),
-        'site_description'    => get_bloginfo( 'description' ),
+        'site_description'    => studio_get_option_field( 'site_description', '', $lang ) ?: get_bloginfo( 'description' ),
         'logo_url'            => studio_get_image_url( $logo_field ),
         'favicon_url'         => studio_get_image_url( $favicon_field, 'thumbnail' ),
         'email'               => studio_get_option_field( 'email', get_option( 'admin_email' ), $lang ),
@@ -287,8 +295,12 @@ function studio_rest_get_about( WP_REST_Request $request ): WP_REST_Response {
     $stats = [];
     if ( is_array( $stats_raw ) ) {
         foreach ( $stats_raw as $row ) {
+            $label = $row['label'] ?? '';
+            if ( 'en' === $lang && ! empty( $row['label_en'] ) ) {
+                $label = $row['label_en'];
+            }
             $stats[] = [
-                'label'  => $row['label'] ?? '',
+                'label'  => $label,
                 'value'  => (int) ( $row['value'] ?? 0 ),
                 'suffix' => $row['suffix'] ?? '',
             ];
@@ -334,16 +346,18 @@ function studio_rest_get_services( WP_REST_Request $request ): WP_REST_Response 
 
             // Для EN сначала ищем title_en и description_en
             $title = $post->post_title;
-            $description = '';
-            if ( function_exists( 'get_field' ) ) {
-                if ( 'en' === $lang ) {
-                    $title_en = get_field( 'title_en', $post->ID );
-                    if ( $title_en ) $title = $title_en;
-                    $desc_en = get_field( 'description_en', $post->ID );
-                    $description = $desc_en ?: (string) ( get_field( 'description', $post->ID ) ?? '' );
-                } else {
-                    $description = (string) ( get_field( 'description', $post->ID ) ?? '' );
-                }
+            $description_uk = (string) get_post_meta( $post->ID, 'description', true );
+            if ( ! $description_uk && function_exists( 'get_field' ) ) {
+                $description_uk = (string) ( get_field( 'description', $post->ID ) ?? '' );
+            }
+            $description_en = (string) get_post_meta( $post->ID, 'description_en', true );
+            $title_en = (string) get_post_meta( $post->ID, 'title_en', true );
+
+            if ( 'en' === $lang ) {
+                if ( $title_en !== '' ) $title = $title_en;
+                $description = $description_en !== '' ? $description_en : $description_uk;
+            } else {
+                $description = $description_uk;
             }
 
             $services[] = [
@@ -369,6 +383,7 @@ function studio_rest_get_services( WP_REST_Request $request ): WP_REST_Response 
  * Структура соответствует интерфейсу PortfolioProject[] из types/api.ts.
  */
 function studio_rest_get_portfolio( WP_REST_Request $request ): WP_REST_Response {
+    $lang = studio_get_lang( $request );
 
     $query = new WP_Query( [
         'post_type'      => 'portfolio',
@@ -426,16 +441,18 @@ function studio_rest_get_portfolio( WP_REST_Request $request ): WP_REST_Response
                 }
             }
 
+            $short_desc_uk = function_exists( 'get_field' ) ? (string) ( get_field( 'short_description', $post->ID ) ?? '' ) : (string) get_post_meta( $post->ID, 'short_description', true );
+            $short_desc_en = (string) get_post_meta( $post->ID, 'short_description_en', true );
+            $full_desc_uk  = function_exists( 'get_field' ) ? (string) ( get_field( 'full_description', $post->ID ) ?? '' ) : (string) get_post_meta( $post->ID, 'full_description', true );
+            $full_desc_en  = (string) get_post_meta( $post->ID, 'full_description_en', true );
+            $title_en      = (string) get_post_meta( $post->ID, 'title_en', true );
+
             $portfolio[] = [
                 'id'                => $post->ID,
                 'slug'              => $post->post_name,
-                'title'             => $post->post_title,
-                'short_description' => function_exists( 'get_field' )
-                    ? (string) ( get_field( 'short_description', $post->ID ) ?? '' )
-                    : (string) get_post_meta( $post->ID, 'short_description', true ),
-                'full_description'  => function_exists( 'get_field' )
-                    ? (string) ( get_field( 'full_description', $post->ID ) ?? '' )
-                    : (string) get_post_meta( $post->ID, 'full_description', true ),
+                'title'             => ( 'en' === $lang && $title_en !== '' ) ? $title_en : $post->post_title,
+                'short_description' => ( 'en' === $lang && $short_desc_en !== '' ) ? $short_desc_en : $short_desc_uk,
+                'full_description'  => ( 'en' === $lang && $full_desc_en !== '' ) ? $full_desc_en : $full_desc_uk,
                 'screenshot_url'    => $screenshot_url,
                 'screenshot_alt'    => $screenshot_alt,
                 'gallery'           => $gallery,
@@ -527,6 +544,7 @@ function studio_rest_get_technologies( WP_REST_Request $request ): WP_REST_Respo
  * Структура соответствует интерфейсу TeamMember[] из types/api.ts.
  */
 function studio_rest_get_team( WP_REST_Request $request ): WP_REST_Response {
+    $lang = studio_get_lang( $request );
 
     $query = new WP_Query( [
         'post_type'      => 'team',
@@ -549,12 +567,17 @@ function studio_rest_get_team( WP_REST_Request $request ): WP_REST_Response {
                 ? ( get_post_meta( $photo_id, '_wp_attachment_image_alt', true ) ?: $post->post_title )
                 : $post->post_title;
 
+            $position_uk = (string) get_post_meta( $post->ID, 'position', true );
+            if ( ! $position_uk && function_exists( 'get_field' ) ) {
+                $position_uk = (string) ( get_field( 'position', $post->ID ) ?? '' );
+            }
+            $position_en = (string) get_post_meta( $post->ID, 'position_en', true );
+            $name_en     = (string) get_post_meta( $post->ID, 'name_en', true );
+
             $team[] = [
                 'id'         => $post->ID,
-                'name'       => $post->post_title,
-                'position'   => function_exists( 'get_field' )
-                    ? (string) ( get_field( 'position', $post->ID ) ?? '' )
-                    : (string) get_post_meta( $post->ID, 'position', true ),
+                'name'       => ( 'en' === $lang && $name_en !== '' ) ? $name_en : $post->post_title,
+                'position'   => ( 'en' === $lang && $position_en !== '' ) ? $position_en : $position_uk,
                 'photo_url'  => $photo_url,
                 'photo_alt'  => $photo_alt,
                 'sort_order' => (int) get_post_meta( $post->ID, 'sort_order', true ),
@@ -594,16 +617,18 @@ function studio_rest_get_geography( WP_REST_Request $request ): WP_REST_Response
                 'country_code'   => function_exists( 'get_field' )
                     ? (string) ( get_field( 'country_code', $post->ID ) ?? '' )
                     : (string) get_post_meta( $post->ID, 'country_code', true ),
-                'country_name'   => $post->post_title,
+                'country_name'   => ( 'en' === $lang && (string) get_post_meta( $post->ID, 'country_name_en', true ) !== '' )
+                    ? (string) get_post_meta( $post->ID, 'country_name_en', true )
+                    : $post->post_title,
                 'projects_count' => (int) ( function_exists( 'get_field' )
                     ? ( get_field( 'projects_count', $post->ID ) ?? 0 )
                     : get_post_meta( $post->ID, 'projects_count', true ) ),
                 'clients_count'  => (int) ( function_exists( 'get_field' )
                     ? ( get_field( 'clients_count', $post->ID ) ?? 0 )
                     : get_post_meta( $post->ID, 'clients_count', true ) ),
-                'tooltip_text'   => function_exists( 'get_field' )
-                    ? (string) ( get_field( 'tooltip_text', $post->ID ) ?? '' )
-                    : (string) get_post_meta( $post->ID, 'tooltip_text', true ),
+                'tooltip_text'   => ( 'en' === $lang && (string) get_post_meta( $post->ID, 'tooltip_text_en', true ) !== '' )
+                    ? (string) get_post_meta( $post->ID, 'tooltip_text_en', true )
+                    : ( function_exists( 'get_field' ) ? (string) ( get_field( 'tooltip_text', $post->ID ) ?? '' ) : (string) get_post_meta( $post->ID, 'tooltip_text', true ) ),
             ];
         }
     }
@@ -619,6 +644,32 @@ function studio_rest_get_geography( WP_REST_Request $request ): WP_REST_Response
             : __( 'We work with clients worldwide', 'studio-headless' ),
         'countries'   => $countries,
     ];
+
+    return new WP_REST_Response( $data, 200 );
+}
+
+
+/**
+ * GET /labels
+ * Возвращает тексты UI-элементов и заголовков секций.
+ */
+function studio_rest_get_labels( WP_REST_Request $request ): WP_REST_Response {
+    $lang = studio_get_lang( $request );
+
+    $fields = [
+        'services_title', 'services_description', 'services_cta',
+        'technologies_title', 'technologies_subtitle',
+        'portfolio_title',
+        'stats_cta_text', 'stats_cta_btn',
+        'contact_title',
+        'hero_secondary_cta',
+        'about_team_title', 'about_cta',
+    ];
+
+    $data = [];
+    foreach ( $fields as $field ) {
+        $data[ $field ] = studio_get_option_field( $field, '', $lang );
+    }
 
     return new WP_REST_Response( $data, 200 );
 }

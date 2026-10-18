@@ -4,15 +4,17 @@ import { motion } from 'framer-motion';
 import Image from 'next/image';
 import { useReducedMotion } from '@/lib/hooks/useReducedMotion';
 import type { Service } from '@/types/api';
+import type { Lang } from '@/lib/api/endpoints';
 
 const SERVICE_ICONS = ['⚡', '🏢', '🛒', '🚀', '📈', '🔧'];
 
 interface ServiceCardProps {
   service: Service;
   index?: number;
+  lang?: Lang;
 }
 
-export default function ServiceCard({ service, index = 0 }: ServiceCardProps) {
+export default function ServiceCard({ service, index = 0, lang = 'uk' }: ServiceCardProps) {
   const reducedMotion = useReducedMotion();
 
   return (
@@ -46,7 +48,7 @@ export default function ServiceCard({ service, index = 0 }: ServiceCardProps) {
 
       <div className="mt-auto">
         <span className="text-accent text-xs font-display font-semibold tracking-widest uppercase opacity-0 group-hover:opacity-100 transition-opacity">
-          Подробнее →
+          {lang === 'en' ? 'Learn more →' : 'Детальніше →'}
         </span>
       </div>
     </motion.div>

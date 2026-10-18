@@ -14,6 +14,7 @@ import type {
   ContactFormPayload,
   ContactFormResponse,
   LandingPageData,
+  SectionLabels,
 } from '@/types/api';
 
 export type Lang = 'uk' | 'en';
@@ -44,11 +45,14 @@ export const fetchPortfolio = (lang: Lang = 'uk'): Promise<PortfolioProject[]> =
 export const fetchGeography = (lang: Lang = 'uk'): Promise<GeographySection> =>
   apiClient.get<GeographySection>('/geography', langParam(lang)).then(r => r.data);
 
+export const fetchLabels = (lang: Lang = 'uk'): Promise<SectionLabels> =>
+  apiClient.get<SectionLabels>('/labels', langParam(lang)).then(r => r.data);
+
 export const submitContact = (payload: ContactFormPayload): Promise<ContactFormResponse> =>
   apiClient.post<ContactFormResponse>('/contact', payload).then(r => r.data);
 
 export const fetchLandingPageData = async (lang: Lang = 'uk'): Promise<LandingPageData> => {
-  const [settings, hero, about, team, services, technologies, portfolio, geography] =
+  const [settings, hero, about, team, services, technologies, portfolio, geography, labels] =
     await Promise.all([
       fetchSettings(lang),
       fetchHero(lang),
@@ -58,7 +62,8 @@ export const fetchLandingPageData = async (lang: Lang = 'uk'): Promise<LandingPa
       fetchTechnologies(lang),
       fetchPortfolio(lang),
       fetchGeography(lang),
+      fetchLabels(lang),
     ]);
 
-  return { settings, hero, about, team, services, technologies, portfolio, geography };
+  return { settings, hero, about, team, services, technologies, portfolio, geography, labels };
 };

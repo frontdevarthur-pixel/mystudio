@@ -4,14 +4,18 @@ import { motion } from 'framer-motion';
 import { useReducedMotion } from '@/lib/hooks/useReducedMotion';
 import ContactForm from '@/components/ui/ContactForm';
 import MapEmbed from '@/components/ui/MapEmbed';
-import type { SiteSettings } from '@/types/api';
+import type { SiteSettings, SectionLabels } from '@/types/api';
+import type { Lang } from '@/lib/api/endpoints';
 
 interface ContactSectionProps {
   settings: SiteSettings;
+  labels?: Pick<SectionLabels, 'contact_title'>;
+  lang?: Lang;
 }
 
-export default function ContactSection({ settings }: ContactSectionProps) {
+export default function ContactSection({ settings, labels, lang = 'uk' }: ContactSectionProps) {
   const reducedMotion = useReducedMotion();
+  const contactTitle = labels?.contact_title || (lang === 'en' ? 'Ready to start?' : 'Готові починати?');
 
   return (
     <section id="contact" className="py-28 bg-[#0d1117] relative overflow-hidden">
@@ -34,11 +38,11 @@ export default function ContactSection({ settings }: ContactSectionProps) {
             transition={{ duration: 0.6 }}
           >
             <h2 className="heading-outline text-5xl sm:text-6xl lg:text-7xl mb-8">
-              Готовы начать?
+              {contactTitle}
             </h2>
 
             <p className="text-slate-400 text-lg leading-relaxed mb-10 max-w-sm">
-              {settings.site_description || 'Расскажите о задаче — обсудим детали и предложим решение'}
+              {settings.site_description || (lang === 'en' ? 'Tell us about the task — we will discuss the details and offer a solution' : 'Розкажіть про задачу — обговоримо деталі та запропонуємо рішення')}
             </p>
 
             {/* Контакты */}
@@ -106,7 +110,7 @@ export default function ContactSection({ settings }: ContactSectionProps) {
             className="space-y-6"
           >
             <div className="glass-card rounded-2xl p-7 border-accent/10">
-              <ContactForm />
+              <ContactForm lang={lang} />
             </div>
 
             {settings.map_coordinates?.lat && settings.map_coordinates?.lng && (

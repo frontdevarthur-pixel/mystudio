@@ -5,19 +5,26 @@ import Image from 'next/image';
 import { useReducedMotion } from '@/lib/hooks/useReducedMotion';
 import { useContactModal } from '@/components/ui/ContactModal';
 import { filterVisible, sortBySortOrder } from '@/lib/utils/sort-filter';
-import type { Service, SiteSettings } from '@/types/api';
+import type { Service, SiteSettings, SectionLabels } from '@/types/api';
+import type { Lang } from '@/lib/api/endpoints';
 
 const ICONS = ['⚡', '🏢', '🛒', '🚀', '📈', '🔧'];
 
 interface ServicesSectionProps {
   services: Service[];
   settings: SiteSettings;
+  labels?: Pick<SectionLabels, 'services_title' | 'services_description' | 'services_cta'>;
+  lang?: Lang;
 }
 
-export default function ServicesSection({ services, settings }: ServicesSectionProps) {
+export default function ServicesSection({ services, settings, labels, lang = 'uk' }: ServicesSectionProps) {
   const reducedMotion = useReducedMotion();
   const { open } = useContactModal();
   const items = sortBySortOrder(filterVisible(services));
+
+  const title = labels?.services_title || (lang === 'en' ? 'What we do' : 'Що ми вміємо');
+  const description = labels?.services_description || settings.site_description || (lang === 'en' ? 'Full cycle — from idea and design to launch and support' : 'Повний цикл — від ідеї та дизайну до запуску і підтримки');
+  const ctaBtn = labels?.services_cta || (lang === 'en' ? 'Discuss project →' : 'Обговорити проект →');
 
   return (
     <section id="services" className="py-28 bg-[#0d1117] relative overflow-hidden">
@@ -33,7 +40,7 @@ export default function ServicesSection({ services, settings }: ServicesSectionP
             transition={{ duration: 0.6 }}
           >
             <h2 className="heading-outline text-5xl sm:text-6xl lg:text-7xl whitespace-nowrap">
-              Що ми вміємо
+              {title}
             </h2>
           </motion.div>
 
@@ -45,10 +52,10 @@ export default function ServicesSection({ services, settings }: ServicesSectionP
             className="lg:max-w-xs"
           >
             <p className="text-slate-400 text-lg leading-relaxed mb-6">
-              {settings.site_description || 'Повний цикл — від ідеї та дизайну до запуску і підтримки'}
+              {description}
             </p>
             <button onClick={open} className="btn-outline px-6 py-3 rounded-xl text-sm">
-              Обговорити проект →
+              {ctaBtn}
             </button>
           </motion.div>
         </div>

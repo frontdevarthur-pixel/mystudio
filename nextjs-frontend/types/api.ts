@@ -164,6 +164,21 @@ export interface ApiError {
 
 // ─── Агрегированный ответ для главной страницы ───────────────────────────────
 
+export interface SectionLabels {
+  services_title: string;
+  services_description: string;
+  services_cta: string;
+  technologies_title: string;
+  technologies_subtitle: string;
+  portfolio_title: string;
+  stats_cta_text: string;
+  stats_cta_btn: string;
+  contact_title: string;
+  hero_secondary_cta: string;
+  about_team_title: string;
+  about_cta: string;
+}
+
 export interface LandingPageData {
   settings: SiteSettings;
   hero: HeroSection;
@@ -173,4 +188,5 @@ export interface LandingPageData {
   technologies: TechnologiesSection;
   portfolio: PortfolioProject[];
   geography: GeographySection;
+  labels: SectionLabels;
 }
