@@ -101,7 +101,7 @@ export default function ContactSection({ settings, labels, lang = 'uk' }: Contac
             )}
           </motion.div>
 
-          {/* Правая — форма + карта */}
+          {/* Правая — форма */}
           <motion.div
             initial={reducedMotion ? false : { opacity: 0, x: 20 }}
             whileInView={{ opacity: 1, x: 0 }}
@@ -112,16 +112,6 @@ export default function ContactSection({ settings, labels, lang = 'uk' }: Contac
             <div className="glass-card rounded-2xl p-7 border-accent/10">
               <ContactForm lang={lang} />
             </div>
-
-            {settings.map_coordinates?.lat && settings.map_coordinates?.lng && (
-              <div className="rounded-2xl overflow-hidden border border-white/6 h-48">
-                <MapEmbed
-                  lat={settings.map_coordinates.lat}
-                  lng={settings.map_coordinates.lng}
-                  markerLabel={settings.office_marker_label || settings.site_name}
-                />
-              </div>
-            )}
           </motion.div>
         </div>
       </div>
