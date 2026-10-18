@@ -199,8 +199,8 @@ add_action( 'acf/init', function (): void {
         'fields' => [
             [ 'key' => 'field_services_title',    'label' => 'Section Title (UK)',       'name' => 'services_title',       'type' => 'text', 'default_value' => 'Що ми вміємо' ],
             [ 'key' => 'field_services_title_en', 'label' => 'Section Title (EN)',       'name' => 'services_title_en',    'type' => 'text', 'default_value' => 'What we do' ],
-            [ 'key' => 'field_services_desc',     'label' => 'Description (UK)',         'name' => 'services_section_desc',    'type' => 'textarea', 'rows' => 3, 'default_value' => 'Повний цикл — від ідеї та дизайну до запуску і підтримки' ],
-            [ 'key' => 'field_services_desc_en',  'label' => 'Description (EN)',         'name' => 'services_section_desc_en', 'type' => 'textarea', 'rows' => 3, 'default_value' => 'Full cycle — from idea and design to launch and support' ],
+            [ 'key' => 'field_services_desc',     'label' => 'Description (UK)',         'name' => 'services_description',    'type' => 'textarea', 'rows' => 3, 'default_value' => 'Повний цикл — від ідеї та дизайну до запуску і підтримки' ],
+            [ 'key' => 'field_services_desc_en',  'label' => 'Description (EN)',         'name' => 'services_description_en', 'type' => 'textarea', 'rows' => 3, 'default_value' => 'Full cycle — from idea and design to launch and support' ],
             [ 'key' => 'field_services_cta',      'label' => 'CTA Button (UK)',          'name' => 'services_cta',         'type' => 'text', 'default_value' => 'Обговорити проект →' ],
             [ 'key' => 'field_services_cta_en',   'label' => 'CTA Button (EN)',          'name' => 'services_cta_en',      'type' => 'text', 'default_value' => 'Discuss project →' ],
         ],

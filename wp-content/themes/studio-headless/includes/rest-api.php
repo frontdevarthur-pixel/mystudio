@@ -665,7 +665,7 @@ function studio_rest_get_labels( WP_REST_Request $request ): WP_REST_Response {
     $lang = studio_get_lang( $request );
 
     $fields = [
-        'services_title', 'services_section_desc', 'services_cta',
+        'services_title', 'services_description', 'services_cta',
         'technologies_title', 'technologies_subtitle',
         'portfolio_title',
         'stats_cta_text', 'stats_cta_btn',

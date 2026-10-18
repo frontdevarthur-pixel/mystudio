@@ -13,7 +13,7 @@ const ICONS = ['⚡', '🏢', '🛒', '🚀', '📈', '🔧'];
 interface ServicesSectionProps {
   services: Service[];
   settings: SiteSettings;
-  labels?: Pick<SectionLabels, 'services_title' | 'services_section_desc' | 'services_cta'>;
+  labels?: Pick<SectionLabels, 'services_title' | 'services_description' | 'services_cta'>;
   lang?: Lang;
 }
 
@@ -23,7 +23,7 @@ export default function ServicesSection({ services, settings, labels, lang = 'uk
   const items = sortBySortOrder(filterVisible(services));
 
   const title = labels?.services_title || (lang === 'en' ? 'What we do' : 'Що ми вміємо');
-  const description = labels?.services_section_desc || settings.site_description || (lang === 'en' ? 'Full cycle — from idea and design to launch and support' : 'Повний цикл — від ідеї та дизайну до запуску і підтримки');
+  const description = labels?.services_description || (lang === 'en' ? 'Full cycle — from idea and design to launch and support' : 'Повний цикл — від ідеї та дизайну до запуску і підтримки');
   const ctaBtn = labels?.services_cta || (lang === 'en' ? 'Discuss project →' : 'Обговорити проект →');
 
   return (
